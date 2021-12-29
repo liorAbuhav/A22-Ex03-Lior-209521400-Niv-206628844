@@ -105,10 +105,10 @@ namespace Ex03.ConsoleUI
             switch (i_userSelectionId)
             {
                 case 1:
-                    this.InsertVehicleToGarage();
+                    this.insertVehicleToGarage();
                     break;
                 case 2:
-                    this.ShowGaragesVehiclesLicenseNumbers();
+                    this.showGaragesVehiclesLicenseNumbers();
                     break;
                 case 3:
                     Console.WriteLine('3');
@@ -129,7 +129,7 @@ namespace Ex03.ConsoleUI
         }
 
         // ex1
-        private void InsertVehicleToGarage()
+        private void insertVehicleToGarage()
         {
             int userVhicleIDSelection = 0;
             eVehicleType userVhicleNameBySelection;
@@ -180,9 +180,10 @@ namespace Ex03.ConsoleUI
         }
 
         // ex02
-        private void ShowGaragesVehiclesLicenseNumbers()
+        private void showGaragesVehiclesLicenseNumbers()
         {
             char userFilterSelection;
+            int userRepairStatusSelection;
             string[] garagesVehiclesLicenseNumbers = { };
 
             Console.WriteLine("Do you want to filter vehicle's license numbers by vehicle status? press y/n");
@@ -190,17 +191,25 @@ namespace Ex03.ConsoleUI
             switch (userFilterSelection)
             {
                 case 'y':
-                    string[] repairStatusOptions = this.m_GarageController.GetAllRepairStatusOptions();
-                    Console.WriteLine("select one of the folowing options:");
-                    for (int i = 0; i < repairStatusOptions.Length; i++)
+                    userRepairStatusSelection = this.getSelectedRepairStatus();
+                    try
                     {
-                        Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i+1);
+                        garagesVehiclesLicenseNumbers = this.m_GarageController.GetVehiclesLicenseNumbersByRepairStatus((eVehicleRepairStatus)userRepairStatusSelection);
                     }
-                    Console.WriteLine();
-                    garagesVehiclesLicenseNumbers = this.m_GarageController.GetVehiclesLicenseNumbersByRepairStatus((eVehicleRepairStatus)(getValidIntegerValueFromUser(1, 7) - 1));
+                    catch (NullReferenceException NREx)
+                    {
+                        Console.WriteLine(NREx.Message);
+                    }
                     break;
                 case 'n':
-                    garagesVehiclesLicenseNumbers = this.m_GarageController.GetAllVehiclesLicenseNumbers();
+                    try
+                    {
+                        garagesVehiclesLicenseNumbers = this.m_GarageController.GetAllVehiclesLicenseNumbers();
+                    }
+                    catch (NullReferenceException NREx)
+                    {
+                        Console.WriteLine(NREx.Message);
+                    }
                     break;
             }
 
@@ -209,6 +218,18 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(licenseNumber);
             }
+        }
+
+        private int getSelectedRepairStatus()
+        {
+            string[] repairStatusOptions = this.m_GarageController.GetAllRepairStatusOptions();
+            Console.WriteLine("select one of the folowing options:");
+            for (int i = 0; i < repairStatusOptions.Length; i++)
+            {
+                Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i + 1);
+            }
+            Console.WriteLine();
+            return getValidIntegerValueFromUser(1, 7) - 1;
         }
 
     }
