@@ -23,6 +23,7 @@ namespace Ex03.GarageLogic
         {
             RepairedVehicle repairedVehicle = null;
 
+            this.validateGarage();
             foreach (RepairedVehicle repairedVehicleToCheckWith in this.m_CurrentGarageVehicles)
             {
                 if (repairedVehicleToCheckWith.Vehicle.LicenseNumber == i_LicenceNumber)
@@ -51,20 +52,31 @@ namespace Ex03.GarageLogic
 
         public bool EnsureVehicleRepairInGarage(RepairedVehicle i_VehicleToEnsureRepairing)
         {
-            bool isVehicleExistsInGarage = this.UpdateRepairedVehicleStatusIfExists(i_VehicleToEnsureRepairing, eVehicleRepairStatus.InRepair);
+            bool isVehicleExistsInGarage = false;
 
-            if (!isVehicleExistsInGarage)
+            if (this.isGarageEmpty())
             {
                 this.m_CurrentGarageVehicles.Add(i_VehicleToEnsureRepairing);
             }
+            else
+            {
+                isVehicleExistsInGarage = this.UpdateRepairedVehicleStatusIfExists(i_VehicleToEnsureRepairing, eVehicleRepairStatus.InRepair);
 
+                if (!isVehicleExistsInGarage)
+                {
+                    this.m_CurrentGarageVehicles.Add(i_VehicleToEnsureRepairing);
+                }
+            }
+            
             return isVehicleExistsInGarage;
         }
 
         public void InflateVehicleWheelsToMaximum(RepairedVehicle i_VehicleToInflate)
         {
-            int repairVehicleToInflate = this.m_CurrentGarageVehicles.IndexOf(i_VehicleToInflate);
+            int repairVehicleToInflate;
 
+            this.validateGarage();
+            repairVehicleToInflate = this.m_CurrentGarageVehicles.IndexOf(i_VehicleToInflate);
             if (repairVehicleToInflate >= 0)
             {
                 this.m_CurrentGarageVehicles[repairVehicleToInflate].Vehicle.InflateVehicleWheelsToMaximum();
@@ -73,9 +85,12 @@ namespace Ex03.GarageLogic
 
         public string[] GetAllVehiclesLieceneNumbers()
         {
-            RepairedVehicle[] garageRepairedVehicles = this.m_CurrentGarageVehicles.ToArray();
-            string[] vehiclesLieceneNumbers = new string[garageRepairedVehicles.Length];
-
+            RepairedVehicle[] garageRepairedVehicles;
+            string[] vehiclesLieceneNumbers; 
+            
+            this.validateGarage();
+            garageRepairedVehicles = this.m_CurrentGarageVehicles.ToArray();
+            vehiclesLieceneNumbers = new string[garageRepairedVehicles.Length];
             for (int i = 0; i < garageRepairedVehicles.Length; i++)
             {
                 vehiclesLieceneNumbers[i] = garageRepairedVehicles[i].Vehicle.LicenseNumber;
@@ -86,9 +101,12 @@ namespace Ex03.GarageLogic
 
         public string[] GetVehiclesLicenseNumbersByRepairStatus(eVehicleRepairStatus i_RepairStatusToFilterBy)
         {
-            RepairedVehicle[] repairedVehiclesAfterFilter = getVehiclesfilteredByRepairStatus(i_RepairStatusToFilterBy).ToArray();
-            string[] vehiclesLieceneNumbers = new string[repairedVehiclesAfterFilter.Length];
+            RepairedVehicle[] repairedVehiclesAfterFilter;
+            string[] vehiclesLieceneNumbers;
 
+            this.validateGarage();
+            repairedVehiclesAfterFilter = getVehiclesfilteredByRepairStatus(i_RepairStatusToFilterBy).ToArray();
+            vehiclesLieceneNumbers = new string[repairedVehiclesAfterFilter.Length];
             for (int i = 0; i < repairedVehiclesAfterFilter.Length; i++)
             {
                 vehiclesLieceneNumbers[i] = repairedVehiclesAfterFilter[i].Vehicle.LicenseNumber;
@@ -97,30 +115,45 @@ namespace Ex03.GarageLogic
             return vehiclesLieceneNumbers;
         }
 
-        public void RefuelVehicle(RepairedVehicle repairedVehicleToRefuel, eFuelType i_FuelTypeToFill, float i_FuelAmountToFill)
+        public void RefuelVehicle(RepairedVehicle i_RepairVehicleToRefuel, eFuelType i_FuelTypeToFill, float i_FuelAmountToFill)
         {
-            Engine repairVehicleEngineToRefuel = repairedVehicleToRefuel.Vehicle.PowerUnit as Engine;
+            Engine repairVehicleEngineToRefuel; 
+            int repairVehicleToRefuelIndex;
 
-            if (repairVehicleEngineToRefuel == null)
+            this.validateGarage();
+            repairVehicleToRefuelIndex = this.m_CurrentGarageVehicles.IndexOf(i_RepairVehicleToRefuel);
+            if (repairVehicleToRefuelIndex >= 0)
             {
-                throw new ArgumentException("can't refuel vehicle, power unit not engine type");
-            }
+                repairVehicleEngineToRefuel = this.m_CurrentGarageVehicles[repairVehicleToRefuelIndex].Vehicle.PowerUnit as Engine;
+                if (repairVehicleEngineToRefuel == null)
+                {
+                    throw new ArgumentException("can't refuel vehicle, power unit not engine type");
+                }
 
-            repairVehicleEngineToRefuel.Refuel(i_FuelTypeToFill, i_FuelAmountToFill);
-            repairedVehicleToRefuel.Vehicle.UpdateRemainingPrecentageOfEnergy();
+                repairVehicleEngineToRefuel.Refuel(i_FuelTypeToFill, i_FuelAmountToFill);
+                this.m_CurrentGarageVehicles[repairVehicleToRefuelIndex].Vehicle.UpdateRemainingPrecentageOfEnergy();
+            }
         }
 
-        public void ChargeVehicle(RepairedVehicle repairedVehicleToCharge, float i_BatteryTimeToAddInMinutes)
+        public void ChargeVehicle(RepairedVehicle i_RepairVehicleToCharge, float i_BatteryTimeToAddInMinutes)
         {
-            Battery repairVehicleBatteryToCharge = repairedVehicleToCharge.Vehicle.PowerUnit as Battery;
 
-            if (repairVehicleBatteryToCharge == null)
+            Battery repairVehicleBatteryToCharge;
+            int repairVehicleToChargeIndex;
+
+            this.validateGarage();
+            repairVehicleToChargeIndex = this.m_CurrentGarageVehicles.IndexOf(i_RepairVehicleToCharge);
+            if (repairVehicleToChargeIndex >= 0)
             {
-                throw new ArgumentException("can't charge vehicle, power unit not battery type");
-            }
+                repairVehicleBatteryToCharge = this.m_CurrentGarageVehicles[repairVehicleToChargeIndex].Vehicle.PowerUnit as Battery;
+                if (repairVehicleBatteryToCharge == null)
+                {
+                    throw new ArgumentException("can't charge vehicle, power unit not battery type");
+                }
 
-            repairVehicleBatteryToCharge.Charge(i_BatteryTimeToAddInMinutes / 60);
-            repairedVehicleToCharge.Vehicle.UpdateRemainingPrecentageOfEnergy();
+                repairVehicleBatteryToCharge.Charge(i_BatteryTimeToAddInMinutes / 60);
+                this.m_CurrentGarageVehicles[repairVehicleToChargeIndex].Vehicle.UpdateRemainingPrecentageOfEnergy();
+            }
         }
 
         public static bool IsVehicleEqualType(Vehicle i_VehicleToCheckWith, Vehicle i_VehicleToCompareTo)
@@ -164,6 +197,19 @@ namespace Ex03.GarageLogic
             }
 
             return repairedVehiclesWithStatusFilter;
+        }
+
+        private void validateGarage() 
+        {
+            if (this.isGarageEmpty())
+            {
+                throw new NullReferenceException("can't perform action, garage is empty");
+            }
+        }
+
+        private bool isGarageEmpty() 
+        {
+            return this.m_CurrentGarageVehicles == null;
         }
         #endregion
     }
