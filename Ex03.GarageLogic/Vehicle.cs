@@ -115,6 +115,19 @@ namespace Ex03.GarageLogic
         }
 
         public static bool operator !=(Vehicle i_LeftVehicleToOperand, Vehicle i_RightVehicleToOperand) => !(i_LeftVehicleToOperand == i_RightVehicleToOperand);
+
+        public override string ToString()
+        {
+            return String.Format("Vehicle: model-{0}, licence number-{1}, wheels manufacturer-{2}, wheel max presure-{3}, current wheel presure-{4}, remain persentage of energy-{5} \n",
+                this.m_ModelName, this.m_LicenseNumber, this.GetWheelManufacturerName(), this.GetWheelMaxAirPressureSetByTheManufacturer(), this.GetWheelCurrentPressure(), this.m_RemainingPrecentageOfEnergy);
+        }
+
+        #region Public Methods
+        public float GetWheelMaxAirPressureSetByTheManufacturer()
+        {
+            Wheel vehicleWheel = this.Wheels.First();
+            return vehicleWheel.MaxAirPressureSetByTheManufacturer;
+        }
         #endregion
 
         #region Constructor 
@@ -128,18 +141,7 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
-        public override string ToString()
-        {
-            return String.Format("Vehicle: model-{0}, licence number-{1}, wheels manufacturer-{2}, wheel max presure-{3}, current wheel presure-{4} ",
-                this.m_ModelName, this.m_LicenseNumber, this.GetWheelManufacturerName(), this.GetWheelMaxAirPressureSetByTheManufacturer(), this.GetWheelCurrentPressure());
-        }
-
-        #region Public Methods
-        public float GetWheelMaxAirPressureSetByTheManufacturer()
-        {
-            Wheel vehicleWheel = this.Wheels.First();
-            return vehicleWheel.MaxAirPressureSetByTheManufacturer;
-        }
+       
 
         public void InflateVehicleWheelsToMaximum()
         {

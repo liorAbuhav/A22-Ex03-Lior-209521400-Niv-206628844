@@ -89,7 +89,7 @@ namespace Ex03.GarageLogic
         #region Methods
         public float GetEnergyRatio()
         {
-            return m_MaxEnergyRate / this.m_CurrentEnergyRate;
+            return this.m_CurrentEnergyRate / m_MaxEnergyRate;
         }
 
         protected void loadEnergy(float i_EnergyToAdd)

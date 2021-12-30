@@ -37,6 +37,7 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        #region Overrides
         public override string ToString()
         {
             Engine isEngine = this.PowerUnit as Engine;
@@ -50,8 +51,9 @@ namespace Ex03.GarageLogic
             {
                 powerUnitString = (this.PowerUnit as Battery).ToString();
             }
-            return String.Format("Motorcycle: liecence type-{0}, engine capcacity-{1}, powerUnit-{2}", this.m_LicenseType, this.m_EngineCapacity, powerUnitString) + base.ToString();
+            return String.Format("Motorcycle: liecence type-{0}, engine capcacity-{1}, \npowerUnit-{2}\n", this.m_LicenseType, this.m_EngineCapacity, powerUnitString) + base.ToString();
         }
+        #endregion
 
         #region Static Methods
         public static Motorcycle CreateFuelMotorcycle(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountToAddInLiters,

@@ -31,7 +31,7 @@ namespace Ex03.ConsoleUI
 
         private void initGarageUI()
         {
-            int userOperationIDSelection = 0;
+            int userOperationIDSelection;
 
             Console.WriteLine("Welcome to the Garage! please choose what do you want to do today?\n");
             userOperationIDSelection = printGarageOperationsAndGetSelectionFromUser();
@@ -52,7 +52,7 @@ namespace Ex03.ConsoleUI
         {
             for (int i = 0; i < sr_GarageOperations.Length; i++)
             {
-                Console.WriteLine(String.Format("For {0}, please enter {1}", sr_GarageOperations[i], i + 1));
+                Console.WriteLine(String.Format("{0} - For {1}", i + 1, sr_GarageOperations[i]));
             }
 
             return getValidIntegerValueFromUser(1, 7);
@@ -72,6 +72,7 @@ namespace Ex03.ConsoleUI
                     {
                         throw new ArgumentException("number is not inside operations range, select number between 1 to 7");
                     }
+
                     shouldGetValidOperationIdFromUser = false;
                 }
                 catch (Exception Ex)
@@ -135,12 +136,14 @@ namespace Ex03.ConsoleUI
         private static float getFloatFromUserWithMsg(string i_MessageToShow)
         {
             Console.WriteLine(i_MessageToShow);
+
             return getValidFloatFromUser();
         }
 
         private static string getStringFromUserWithMsg(string i_MessageToShow)
         {
             Console.WriteLine(i_MessageToShow);
+
             return Console.ReadLine();
         }
 
@@ -176,6 +179,7 @@ namespace Ex03.ConsoleUI
         {
             string paramName = i_ParamName.Substring(2);
             string proccessedParamName = "";
+
             foreach (char paramChar in paramName)
             {
                 if (char.IsUpper(paramChar))
@@ -184,12 +188,14 @@ namespace Ex03.ConsoleUI
                 }
                 proccessedParamName += paramChar;
             }
+
             proccessedParamName = proccessedParamName.Substring(1);
+
             return proccessedParamName;
         }
         private void insertVehicleToGarage()
         {
-            int userVhicleIDSelection = 0;
+            int userVhicleIDSelection;
             eVehicleType userVhicleNameBySelection;
             string[] paramsForCreationMethodBeforeParsing;
             string userInputOwnerName;
@@ -203,13 +209,13 @@ namespace Ex03.ConsoleUI
 
             userVhicleIDSelection = getValidIntegerValueFromUser(1, this.m_GarageController.VehicleCreationMethods.Keys.Count);
             userVhicleNameBySelection = this.m_GarageController.VehicleCreationMethods.Keys.ElementAt(userVhicleIDSelection - 1);
-
             paramsForCreationMethodBeforeParsing = this.createParametersDynamiclyForCreationMethod(this.m_GarageController.VehicleCreationMethods[userVhicleNameBySelection].GetParameters());
-            userInputOwnerName = getStringFromUserWithMsg("please enter vehicle owner name\n");
-            userInputOwnerPhone = getStringFromUserWithMsg("please enter vehicle owner phone\n");
+            userInputOwnerName = getStringFromUserWithMsg("Please enter vehicle owner name");
+            userInputOwnerPhone = getStringFromUserWithMsg("Please enter vehicle owner phone");
             try
             {
                 this.m_GarageController.getVehicleParamsFromUserAndParseByVehicleType(userVhicleNameBySelection, paramsForCreationMethodBeforeParsing, userInputOwnerName, userInputOwnerPhone);
+                Console.WriteLine("Vehicle ensured successfully!");
             }
             catch (Exception Ex)
             {
@@ -225,20 +231,22 @@ namespace Ex03.ConsoleUI
         {
             string[] paramsForCreationMethodBeforeParsing = new string[i_CreationMethodParametersInfo.Length];
             Type currentParameterType;
+
             for (int i = 0; i < i_CreationMethodParametersInfo.Length; i++)
             {     
-                Console.WriteLine(string.Format("please enter value for {0}, should be {1}",
+                Console.WriteLine(string.Format("Please enter value for {0}, should be {1}",
                     this.changeParamNameToReadableFormat(i_CreationMethodParametersInfo[i].Name), i_CreationMethodParametersInfo[i].ParameterType));
                 currentParameterType = i_CreationMethodParametersInfo[i].ParameterType;
                 if (currentParameterType.IsEnum)
                 {
-                    Console.WriteLine("this is an enum, your options are: (copy and paste selected option)");
+                    Console.WriteLine("This is an enum, your options are: (copy and paste selected option)");
                     foreach (string enumOptionName in Enum.GetNames(currentParameterType))
                     {
                         Console.Write(string.Format("{0} ", enumOptionName));
                         Console.WriteLine();
                     }
                 }
+
                 paramsForCreationMethodBeforeParsing[i] = Console.ReadLine();
             }
 
@@ -272,11 +280,13 @@ namespace Ex03.ConsoleUI
                 }
                 else
                 {
-                    Console.WriteLine("Vehicles license numbers are:");
+                    Console.WriteLine("\nVehicles license numbers are:");
                     foreach (string licenseNumber in garagesVehiclesLicenseNumbers)
                     {
                         Console.WriteLine(licenseNumber);
                     }
+
+                    Console.WriteLine("\nVehicles license number printed above successfully!");
                 }
             }
             catch (Exception Ex)
@@ -292,12 +302,15 @@ namespace Ex03.ConsoleUI
         private int getSelectedRepairStatus()
         {
             string[] repairStatusOptions = this.m_GarageController.GetAllRepairStatusOptions();
-            Console.WriteLine("select one of the folowing options:");
+
+            Console.WriteLine("Select one of the folowing options:");
             for (int i = 0; i < repairStatusOptions.Length; i++)
             {
                 Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i + 1);
             }
+
             Console.WriteLine();
+
             return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
         }
         // ex03
@@ -305,7 +318,7 @@ namespace Ex03.ConsoleUI
         {
             string userLicenseNumber;
 
-            Console.WriteLine("Enter vehicle license number\n");
+            Console.WriteLine("Enter vehicle license number");
             userLicenseNumber = Console.ReadLine();
             Console.WriteLine();
 
@@ -322,6 +335,7 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.ChangeVehicleRepairStatus(userLicenseNumber, (eVehicleRepairStatus)userRepairStatusSelection);
+                Console.WriteLine("\nstatus changed successfully!");
             }
             catch (Exception Ex)
             {
@@ -336,9 +350,11 @@ namespace Ex03.ConsoleUI
         private void InflateVehicleWheelsToMaximum()
         {
             string userLicenseNumber = this.getLicenseNumberFromUser();
+
             try
             {
                 this.m_GarageController.InflateVehicleWheelsToMaximum(userLicenseNumber);
+                Console.WriteLine("\nVehicle inflated successfully!");
             }
             catch (Exception Ex)
             {
@@ -353,12 +369,15 @@ namespace Ex03.ConsoleUI
         private int getSelectedFuelType()
         {
             string[] repairStatusOptions = this.m_GarageController.GetAllFuelTypeOptions();
+
             Console.WriteLine("select one of the folowing options:");
             for (int i = 0; i < repairStatusOptions.Length; i++)
             {
                 Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i + 1);
             }
+
             Console.WriteLine();
+
             return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
         }
 
@@ -370,11 +389,11 @@ namespace Ex03.ConsoleUI
             
             userLicenseNumber = this.getLicenseNumberFromUser();
             userSelectedFuelType = this.getSelectedFuelType();
-            userFuelAmountToFill = getFloatFromUserWithMsg("please select how many liters of fuel to fill \n");
-
+            userFuelAmountToFill = getFloatFromUserWithMsg("Please select how many liters of fuel to fill");
             try
             {
                 this.m_GarageController.RefualFuelVehicle(userLicenseNumber, (eFuelType)(userSelectedFuelType), userFuelAmountToFill);
+                Console.WriteLine("\nVehicle refuled successfully!");
             }
             catch (Exception Ex)
             {
@@ -384,7 +403,6 @@ namespace Ex03.ConsoleUI
             {
                 this.restartGarageUI();
             }
-
         }
         //ex06
         private void chargeElectricVehicle()
@@ -393,11 +411,11 @@ namespace Ex03.ConsoleUI
             float userMinutesAmountToCharge;
 
             userLicenseNumber = this.getLicenseNumberFromUser();
-            userMinutesAmountToCharge = getFloatFromUserWithMsg("please select amount of charging minutes \n");
-
+            userMinutesAmountToCharge = getFloatFromUserWithMsg("please select amount of charging minutes ");
             try
             {
                 this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
+                Console.WriteLine("\nVehicle charged successfully!");
             }
             catch (Exception Ex)
             {
@@ -414,10 +432,10 @@ namespace Ex03.ConsoleUI
             string userLicenseNumber;
 
             userLicenseNumber = this.getLicenseNumberFromUser();
-
             try
             {
                 Console.WriteLine(this.m_GarageController.GetRepairVehicle(userLicenseNumber));
+                Console.WriteLine("\nVehicle data printed successfully!");
             }
             catch (Exception Ex)
             {

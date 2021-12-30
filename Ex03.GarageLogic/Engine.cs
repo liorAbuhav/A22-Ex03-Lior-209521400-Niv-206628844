@@ -22,10 +22,12 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        #region Overrides
         public override string ToString()
         {
             return String.Format("Battery: fuel amount in litters-{0}, current engine fuel amount-{1}", this.MaxEnergyRate, this.CurrentEnergyRate);
         }
+        #endregion
 
         #region Constructor
         public Engine(float i_MaxFuelAmountInLiters, eFuelType i_FuelType) : base(i_MaxFuelAmountInLiters)

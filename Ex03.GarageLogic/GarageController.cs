@@ -47,6 +47,7 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        #region Public Methods
         public void getVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType, string i_VehicleOwnerName, string i_VehicleOwnerPhone)
         {
             // todo: here needed to create a validation function (generic / for every type)
@@ -260,8 +261,6 @@ namespace Ex03.GarageLogic
             return GarageController.createTruck(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedIsDrivingRefregiratedContents, convertedCargoVolume);
         }
-
-        #region Public Methods
 
         public bool InsertVehicleToGarage(Vehicle i_VehicleToRepair, string i_OwnerName, string i_OwnerPhone)
         {

@@ -50,10 +50,12 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        #region Overrides
         public override string ToString()
         {
-            return String.Format("Truck: refrigirated contents-{0}, cargo volume-{1}, engine-{3}", this.m_IsDrivingRefregiratedContents, this.m_CargoVolume, (this.PowerUnit as Engine).ToString()) + base.ToString();
+            return String.Format("Truck: refrigirated contents-{0}, cargo volume-{1}, \npowerUnit-{2}\n", this.m_IsDrivingRefregiratedContents, this.m_CargoVolume, (this.PowerUnit as Engine).ToString()) + base.ToString();
         }
+        #endregion
 
         #region Static Methods
         public static Truck CreateTruck(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountToAddInLiters,

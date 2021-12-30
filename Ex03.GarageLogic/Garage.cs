@@ -42,12 +42,14 @@ namespace Ex03.GarageLogic
         public bool UpdateRepairedVehicleStatusIfExists(RepairedVehicle i_RepairedVehicleToUpdateRepairStatus, eVehicleRepairStatus i_StatusToUpdateTo)
         {
             bool isUpdated = false;
-            int repairVehicleIndex = this.m_CurrentGarageVehicles.IndexOf(i_RepairedVehicleToUpdateRepairStatus);
+            RepairedVehicle repairVehicleIfExists = this.GetRepairedVehicleByLiecenceNumber(i_RepairedVehicleToUpdateRepairStatus.Vehicle.LicenseNumber);
+            int repairVehicleIndex;
 
-            if (repairVehicleIndex >= 0)
+            if (repairVehicleIfExists != null)
             {
-                isUpdated = true;
+                repairVehicleIndex = this.m_CurrentGarageVehicles.IndexOf(repairVehicleIfExists);
                 this.m_CurrentGarageVehicles[repairVehicleIndex].VehicleStatus = i_StatusToUpdateTo;
+                isUpdated = true;
             }
 
             return isUpdated;

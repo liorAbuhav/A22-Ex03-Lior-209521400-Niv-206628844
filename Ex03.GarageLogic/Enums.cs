@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
         Five,
     }
 
-    public enum eEngineType
+    public enum ePowerUnitType
     {
         Electric,
         Fuel
@@ -53,7 +53,7 @@ namespace Ex03.GarageLogic
 
     public enum eWheelsCount
     {
-        One,
+        One = 1,
         Two,
         Four = 4,
         Sixteen = 16
