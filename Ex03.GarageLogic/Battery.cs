@@ -13,6 +13,12 @@ namespace Ex03.GarageLogic
         {
         }
         #endregion
+        
+        public override string ToString() 
+        {
+            return String.Format("Battery: Max battery time in hours-{0}, current battery time-{1}", this.MaxEnergyRate, this.CurrentEnergyRate);
+        }
+
 
         #region Methods
         public void Charge(float i_HoursToAdd)

@@ -198,11 +198,28 @@ namespace Ex03.GarageLogic
             this.m_ControlledGarage.ChargeVehicle(repairedVehicleToCharge, i_MinutesAmountToCharge);
         }
 
-        public RepairedVehicle GetRepairVehicle(string i_LicenseNumber)
+        public string GetRepairVehicle(string i_LicenseNumber)
         {
             RepairedVehicle repairedVehicle = this.getGarageRepairedVehicleByLiecenceNumber(i_LicenseNumber);
+            StringBuilder vehicleInGarageDetailes = new StringBuilder();
 
-            return repairedVehicle;
+            vehicleInGarageDetailes.Append(repairedVehicle.ToString());
+            switch (repairedVehicle.Vehicle)
+            {
+                case Car c:
+                    vehicleInGarageDetailes.Append((repairedVehicle.Vehicle as Car).ToString());
+                    break;
+                case Motorcycle c:
+                    vehicleInGarageDetailes.Append((repairedVehicle.Vehicle as Motorcycle).ToString());
+                    break;
+                case Truck c:
+                    vehicleInGarageDetailes.Append((repairedVehicle.Vehicle as Truck).ToString());
+                    break;
+                default:
+                    throw new NullReferenceException("can't convert vehicle from type unknown to string");
+            }
+
+            return vehicleInGarageDetailes.ToString();
         }
         #endregion
 
