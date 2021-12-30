@@ -58,7 +58,7 @@ namespace Ex03.GarageLogic
         #region Private Constructor
         private Car(float i_WheelMaxAirPressureSetByTheManufacturer, string i_ModelName, string i_LicenseNumber,
             string i_WheelManufacturerName, eColor i_CarColor, eDoorsNumber i_DoorsNumber, PowerUnit i_carEngine)
-            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_WheelManufacturerName, eWheelsCount.Four, i_ModelName, i_LicenseNumber)
+            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_carEngine, i_WheelManufacturerName, eWheelsCount.Four, i_ModelName, i_LicenseNumber)
         {
             this.m_DoorsNumber = i_DoorsNumber;
             this.m_CarColor = i_CarColor;

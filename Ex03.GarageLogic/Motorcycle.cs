@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
         #region Private Constructor
         private Motorcycle(float i_WheelMaxAirPressureSetByTheManufacturer, string i_ModelName, string i_LicenseNumber,
             string i_WheelManufacturerName, int i_EngineCapacity, eLicenseType i_MotorcycleLicenseType, PowerUnit i_MotorcycleEngine)
-            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_WheelManufacturerName, eWheelsCount.Two, i_ModelName, i_LicenseNumber)
+            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_MotorcycleEngine, i_WheelManufacturerName, eWheelsCount.Two, i_ModelName, i_LicenseNumber)
         {
             this.m_EngineCapacity = i_EngineCapacity;
             this.m_LicenseType = i_MotorcycleLicenseType;

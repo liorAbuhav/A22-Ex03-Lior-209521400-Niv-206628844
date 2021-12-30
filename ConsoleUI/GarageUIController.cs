@@ -121,6 +121,7 @@ namespace Ex03.ConsoleUI
                 try
                 {
                     usersFloat = float.Parse(Console.ReadLine());
+                    shouldGetValidFloatFromUser  = false;
                 }
                 catch (Exception Ex)
                 {
@@ -214,6 +215,10 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(string.Format("Invalid input, cannot parse" + Ex.Message));
             }
+            finally
+            {
+                this.restartGarageUI();
+            }
         }
 
         private string[] createParametersDynamiclyForCreationMethod(ParameterInfo[] i_CreationMethodParametersInfo)
@@ -261,16 +266,26 @@ namespace Ex03.ConsoleUI
                         break;
                 }
 
-                Console.WriteLine("Vehicles license numbers are:");
-                foreach (string licenseNumber in garagesVehiclesLicenseNumbers)
+                if(garagesVehiclesLicenseNumbers.Length == 0)
                 {
-                    Console.WriteLine(licenseNumber);
+                    Console.WriteLine("Vehicles list is empty!");
                 }
-                this.restartGarageUI();
+                else
+                {
+                    Console.WriteLine("Vehicles license numbers are:");
+                    foreach (string licenseNumber in garagesVehiclesLicenseNumbers)
+                    {
+                        Console.WriteLine(licenseNumber);
+                    }
+                }
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
         }
 
@@ -307,11 +322,14 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.ChangeVehicleRepairStatus(userLicenseNumber, (eVehicleRepairStatus)userRepairStatusSelection);
-                this.restartGarageUI();
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
         }
         //ex04
@@ -321,11 +339,14 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.InflateVehicleWheelsToMaximum(userLicenseNumber);
-                this.restartGarageUI();
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
         }
         //ex05
@@ -354,11 +375,14 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.RefualFuelVehicle(userLicenseNumber, (eFuelType)(userSelectedFuelType), userFuelAmountToFill);
-                this.restartGarageUI();
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
 
         }
@@ -374,12 +398,14 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
-                this.restartGarageUI();
-
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
         }
         //ex07
@@ -391,12 +417,15 @@ namespace Ex03.ConsoleUI
 
             try
             {
-                this.m_GarageController.GetRepairVehicle(userLicenseNumber);
-                this.restartGarageUI();
+                Console.WriteLine(this.m_GarageController.GetRepairVehicle(userLicenseNumber));
             }
             catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
             }
         }
 

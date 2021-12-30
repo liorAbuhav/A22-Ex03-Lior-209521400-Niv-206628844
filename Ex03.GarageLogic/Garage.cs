@@ -15,6 +15,9 @@ namespace Ex03.GarageLogic
         #region Constructor
         public Garage()
         {
+            this.m_CurrentGarageVehicles = new List<RepairedVehicle>();
+            Motorcycle fuelMotorcycle = Motorcycle.CreateFuelMotorcycle(30, 5.8f, eFuelType.Octan98, "tesla", "123", "simi", 400, eLicenseType.A);
+            this.m_CurrentGarageVehicles.Add(new RepairedVehicle(fuelMotorcycle, "niv", "5"));
         }
         #endregion
 
@@ -44,7 +47,7 @@ namespace Ex03.GarageLogic
             if (repairVehicleIndex >= 0)
             {
                 isUpdated = true;
-                this.m_CurrentGarageVehicles[repairVehicleIndex].VehicleStatus = eVehicleRepairStatus.InRepair;
+                this.m_CurrentGarageVehicles[repairVehicleIndex].VehicleStatus = i_StatusToUpdateTo;
             }
 
             return isUpdated;
@@ -209,7 +212,7 @@ namespace Ex03.GarageLogic
 
         private bool isGarageEmpty() 
         {
-            return this.m_CurrentGarageVehicles == null;
+            return this.m_CurrentGarageVehicles.Count == 0;
         }
         #endregion
     }

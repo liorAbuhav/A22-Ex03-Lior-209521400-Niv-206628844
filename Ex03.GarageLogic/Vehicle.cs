@@ -118,19 +118,20 @@ namespace Ex03.GarageLogic
         #endregion
 
         #region Constructor 
-        public Vehicle(float i_WheelMaxAirPressureSetByTheManufacturer, string i_WheelManufacturerName = null, eWheelsCount i_WheelsCount = default(eWheelsCount), string i_ModelName = null, string i_LicenseNumber = null)
+        public Vehicle(float i_WheelMaxAirPressureSetByTheManufacturer, PowerUnit i_PowerUnit, string i_WheelManufacturerName = null, eWheelsCount i_WheelsCount = default(eWheelsCount), string i_ModelName = null, string i_LicenseNumber = null)
         {
             this.m_ModelName = i_ModelName ?? string.Empty;
             this.m_LicenseNumber = i_LicenseNumber ?? string.Empty;
             this.m_RemainingPrecentageOfEnergy = 0;
             this.m_Wheels = this.getWheelsList(i_WheelMaxAirPressureSetByTheManufacturer, i_WheelsCount, i_WheelManufacturerName);
+            this.PowerUnit = i_PowerUnit;
         }
         #endregion
 
         public override string ToString()
         {
-            return String.Format("Vehicle: model-{0}, licence number-{1}, wheels manufacturer-{2}, wheel max presure-{3}",
-                this.m_ModelName, this.m_LicenseNumber, this.GetWheelManufacturerName(), this.GetWheelMaxAirPressureSetByTheManufacturer());
+            return String.Format("Vehicle: model-{0}, licence number-{1}, wheels manufacturer-{2}, wheel max presure-{3}, current wheel presure-{4} ",
+                this.m_ModelName, this.m_LicenseNumber, this.GetWheelManufacturerName(), this.GetWheelMaxAirPressureSetByTheManufacturer(), this.GetWheelCurrentPressure());
         }
 
         #region Public Methods
@@ -171,6 +172,12 @@ namespace Ex03.GarageLogic
         {
             Wheel vehicleWheel = this.Wheels.First();
             return vehicleWheel.ManufacturerName;
+        }
+
+        public float GetWheelCurrentPressure()
+        {
+            Wheel vehicleWheel = this.Wheels.First();
+            return vehicleWheel.CurrentAirPressure;
         }
         #endregion
     }

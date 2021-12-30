@@ -116,7 +116,7 @@ namespace Ex03.GarageLogic
                 Console.WriteLine(FEx.Message);
             }
 
-            return (T)Convert.ChangeType(convertedEnumValue, typeof(T));
+            return (T)(Object)convertedEnumValue;
         }
 
 
