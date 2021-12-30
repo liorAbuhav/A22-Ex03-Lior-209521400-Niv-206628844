@@ -40,6 +40,14 @@ namespace Ex03.ConsoleUI
             Console.ReadLine();
         }
 
+        private void restartGarageUI()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            this.initGarageUI();
+        }
+
         private static int printGarageOperationsAndGetSelectionFromUser()
         {
             for (int i = 0; i < sr_GarageOperations.Length; i++)
@@ -66,9 +74,9 @@ namespace Ex03.ConsoleUI
                     }
                     shouldGetValidOperationIdFromUser = false;
                 }
-                catch (Exception argEx)
+                catch (Exception Ex)
                 {
-                    Console.WriteLine(String.Format("Invalid input, {0}", argEx.Message));
+                    Console.WriteLine(String.Format("Invalid input, {0}", Ex.Message));
                 }
             }
 
@@ -94,9 +102,9 @@ namespace Ex03.ConsoleUI
                         shouldGetValidYesNoAnswerFromUser = false;
                     }
                 }
-                catch (Exception FormatEx)
+                catch (Exception Ex)
                 {
-                    Console.WriteLine(String.Format("Invalid input, {0}", FormatEx.Message));
+                    Console.WriteLine(String.Format("Invalid input, {0}", Ex.Message));
                 }
             }
 
@@ -114,9 +122,9 @@ namespace Ex03.ConsoleUI
                 {
                     usersFloat = float.Parse(Console.ReadLine());
                 }
-                catch (FormatException FormatEx)
+                catch (Exception Ex)
                 {
-                    Console.WriteLine(String.Format("Invalid input, {0}", FormatEx.Message));
+                    Console.WriteLine(String.Format("Invalid input, {0}", Ex.Message));
                 }
             }
 
@@ -127,6 +135,12 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine(i_MessageToShow);
             return getValidFloatFromUser();
+        }
+
+        private static string getStringFromUserWithMsg(string i_MessageToShow)
+        {
+            Console.WriteLine(i_MessageToShow);
+            return Console.ReadLine();
         }
 
         private void navigateToOperationByUserSelectionId(int i_UserSelectionId)
@@ -177,6 +191,8 @@ namespace Ex03.ConsoleUI
             int userVhicleIDSelection = 0;
             eVehicleType userVhicleNameBySelection;
             string[] paramsForCreationMethodBeforeParsing;
+            string userInputOwnerName;
+            string userInputOwnerPhone;
 
             Console.WriteLine("Please select vehicle type:");
             for (int i = 0; i < this.m_GarageController.VehicleCreationMethods.Keys.Count; i++)
@@ -188,13 +204,15 @@ namespace Ex03.ConsoleUI
             userVhicleNameBySelection = this.m_GarageController.VehicleCreationMethods.Keys.ElementAt(userVhicleIDSelection - 1);
 
             paramsForCreationMethodBeforeParsing = this.createParametersDynamiclyForCreationMethod(this.m_GarageController.VehicleCreationMethods[userVhicleNameBySelection].GetParameters());
+            userInputOwnerName = getStringFromUserWithMsg("please enter vehicle owner name\n");
+            userInputOwnerPhone = getStringFromUserWithMsg("please enter vehicle owner phone\n");
             try
             {
-                this.m_GarageController.getVehicleParamsFromUserAndParseByVehicleType(userVhicleNameBySelection, paramsForCreationMethodBeforeParsing);
+                this.m_GarageController.getVehicleParamsFromUserAndParseByVehicleType(userVhicleNameBySelection, paramsForCreationMethodBeforeParsing, userInputOwnerName, userInputOwnerPhone);
             }
-            catch (FormatException formatEx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(string.Format("Invalid input, cannot parse" + formatEx.Message));
+                Console.WriteLine(string.Format("Invalid input, cannot parse" + Ex.Message));
             }
         }
 
@@ -248,10 +266,11 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine(licenseNumber);
                 }
+                this.restartGarageUI();
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
         }
 
@@ -288,10 +307,11 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.ChangeVehicleRepairStatus(userLicenseNumber, (eVehicleRepairStatus)userRepairStatusSelection);
+                this.restartGarageUI();
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
         }
         //ex04
@@ -301,10 +321,11 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.InflateVehicleWheelsToMaximum(userLicenseNumber);
+                this.restartGarageUI();
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
         }
         //ex05
@@ -333,10 +354,11 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.RefualFuelVehicle(userLicenseNumber, (eFuelType)(userSelectedFuelType), userFuelAmountToFill);
+                this.restartGarageUI();
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
 
         }
@@ -352,10 +374,12 @@ namespace Ex03.ConsoleUI
             try
             {
                 this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
+                this.restartGarageUI();
+
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
         }
         //ex07
@@ -367,11 +391,12 @@ namespace Ex03.ConsoleUI
 
             try
             {
-                // this.m_GarageController.GetRepairVehicleFullData(userLicenseNumber, userMinutesAmountToCharge);
+                this.m_GarageController.GetRepairVehicle(userLicenseNumber);
+                this.restartGarageUI();
             }
-            catch (NullReferenceException NREx)
+            catch (Exception Ex)
             {
-                Console.WriteLine(NREx.Message);
+                Console.WriteLine(Ex.Message);
             }
         }
 

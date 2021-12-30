@@ -47,26 +47,22 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
-        public void getVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType)
+        public void getVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType, string i_VehicleOwnerName, string i_VehicleOwnerPhone)
         {
             // todo: here needed to create a validation function (generic / for every type)
             switch (i_SelectedVehicleType)
             {
                 case eVehicleType.FuelMotorcycle:
-                    //this.validate() / this.validateElectricMotorcycle()
-                    //this.CreateFuelMotorcycle()
+                    //Motorcycle x = this.validateFuelMotorcycle()
+                    //this.InsertVehicleToGarage(x, i_VehicleOwnerName, i_VehicleOwnerPhone)
                     break;
                 case eVehicleType.ElectricMotorcycle:
-                    //this.CreateElectricMotorcycle()
                     break;
                 case eVehicleType.FuelCar:
-                    //this.CreateFuelCar()
                     break;
                 case eVehicleType.ElectricCar:
-                    //this.CreateElectricCar()
                     break;
                 case eVehicleType.Truck:
-                    //this.CreateTruck()
                     break;
             }
         }
@@ -85,6 +81,14 @@ namespace Ex03.GarageLogic
             return newFuelMotorcycle;
 
         }
+
+        //private Motorcycle validateFuelMotorcycle(string[] i_UserParamsByVehicleType)
+        //{
+        //    string wheelMaxAirPressureSetByTheManufacturer = i_UserParamsByVehicleType[0];
+        //    float convertedWheelMaxAirPressureSetByTheManufacturer = TypesValidators.validateFloat(wheelMaxAirPressureSetByTheManufacturer)
+
+        //    return CreateFuelMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer .......)
+        //}
 
         public Motorcycle CreateElectricMotorcycle(float i_WheelMaxAirPressureSetByTheManufacturer, float i_MaxBatteryTimeInHours,
             string i_ModelName, string i_LicenseNumber, string i_WheelManufacturerName, int i_EngineCapacity,
