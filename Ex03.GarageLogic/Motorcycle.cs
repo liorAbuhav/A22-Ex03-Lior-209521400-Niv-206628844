@@ -51,6 +51,7 @@ namespace Ex03.GarageLogic
             {
                 powerUnitString = (this.PowerUnit as Battery).ToString();
             }
+
             return String.Format("Motorcycle: liecence type-{0}, engine capcacity-{1}, \npowerUnit-{2}\n", this.m_LicenseType, this.m_EngineCapacity, powerUnitString) + base.ToString();
         }
         #endregion

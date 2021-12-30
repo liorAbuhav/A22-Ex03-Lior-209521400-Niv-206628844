@@ -43,6 +43,7 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException("can't refuel engine, fuel type doen't match");
             }
+
             base.loadEnergy(i_FuelAmountToAddInLiters);
         }
         #endregion

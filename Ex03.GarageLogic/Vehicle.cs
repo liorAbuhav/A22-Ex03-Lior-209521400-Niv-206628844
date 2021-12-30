@@ -114,7 +114,10 @@ namespace Ex03.GarageLogic
             return areVehiclesEqual;
         }
 
-        public static bool operator !=(Vehicle i_LeftVehicleToOperand, Vehicle i_RightVehicleToOperand) => !(i_LeftVehicleToOperand == i_RightVehicleToOperand);
+        public static bool operator !=(Vehicle i_LeftVehicleToOperand, Vehicle i_RightVehicleToOperand)
+        {
+            return !(i_LeftVehicleToOperand == i_RightVehicleToOperand);
+        }
 
         public override string ToString()
         {
@@ -173,12 +176,14 @@ namespace Ex03.GarageLogic
         public string GetWheelManufacturerName()
         {
             Wheel vehicleWheel = this.Wheels.First();
+
             return vehicleWheel.ManufacturerName;
         }
 
         public float GetWheelCurrentPressure()
         {
             Wheel vehicleWheel = this.Wheels.First();
+
             return vehicleWheel.CurrentAirPressure;
         }
         #endregion

@@ -53,6 +53,7 @@ namespace Ex03.GarageLogic
             {
                 powerUnitString = (this.PowerUnit as Battery).ToString();
             }
+
             return String.Format("Car: color-{0}, doors number-{1}, \npowerUnit-{2}\n", this.m_CarColor, this.m_DoorsNumber, powerUnitString) + base.ToString();
         }
         #endregion

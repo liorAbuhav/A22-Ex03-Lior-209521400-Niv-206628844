@@ -28,12 +28,14 @@ namespace Ex03.GarageLogic
         public static T ValidateEnum<T>(string i_StringToConvert)
         {
             int convertedEnumValue = 0;
+
             try
             {
                 if (!Enum.IsDefined(typeof(T), i_StringToConvert))
                 {
                     throw new ArgumentException();
                 }
+
                 convertedEnumValue = (int)Enum.Parse(typeof(T), i_StringToConvert);
             }
             catch (FormatException FEx)

@@ -11,8 +11,8 @@ namespace Ex03.ConsoleUI
 {
     public class GarageUIController
     {
+        #region Data Members
         private GarageController m_GarageController;
-
         private static readonly string[] sr_GarageOperations = {
             "inserting new vehicle to the garage",
             "showing licensce numbers of garage's vheicles (with filtering option)",
@@ -22,14 +22,18 @@ namespace Ex03.ConsoleUI
             "charging a vehicle (for a powered-by electricity vehicle)",
             "showing all vehicle's data by license number"
         };
+        #endregion
 
+        #region Constructor
         public GarageUIController()
         {
             this.m_GarageController = new GarageController();
 
             this.initGarageUI();
         }
+        #endregion
 
+        #region Methods
         private void initGarageUI()
         {
             int userOperationIDSelection;
@@ -37,8 +41,6 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Welcome to the Garage! please choose what do you want to do today?\n");
             userOperationIDSelection = printGarageOperationsAndGetSelectionFromUser();
             this.navigateToOperationByUserSelectionId(userOperationIDSelection);
-
-            Console.ReadLine();
         }
 
         private void restartGarageUI()
@@ -175,7 +177,7 @@ namespace Ex03.ConsoleUI
                     break;
             }
         }
-        // ex1
+        
         private string changeParamNameToReadableFormat(string i_ParamName)
         {
             string paramName = i_ParamName.Substring(2);
@@ -194,6 +196,7 @@ namespace Ex03.ConsoleUI
 
             return proccessedParamName;
         }
+
         private void insertVehicleToGarage()
         {
             int userVhicleIDSelection;
@@ -253,7 +256,7 @@ namespace Ex03.ConsoleUI
 
             return paramsForCreationMethodBeforeParsing;
         }
-        // ex02
+
         private void showGaragesVehiclesLicenseNumbers()
         {
             char userFilterSelection;
@@ -314,7 +317,7 @@ namespace Ex03.ConsoleUI
 
             return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
         }
-        // ex03
+
         private string getLicenseNumberFromUser()
         {
             string userLicenseNumber;
@@ -326,6 +329,7 @@ namespace Ex03.ConsoleUI
             return userLicenseNumber;
 
         }
+
         private void changeVehicleStatus()
         {
             string userLicenseNumber;
@@ -347,7 +351,7 @@ namespace Ex03.ConsoleUI
                 this.restartGarageUI();
             }
         }
-        //ex04
+
         private void inflateVehicleWheelsToMaximum()
         {
             string userLicenseNumber = this.getLicenseNumberFromUser();
@@ -366,7 +370,7 @@ namespace Ex03.ConsoleUI
                 this.restartGarageUI();
             }
         }
-        //ex05
+
         private int getSelectedFuelType()
         {
             string[] repairStatusOptions = this.m_GarageController.GetAllFuelTypeOptions();
@@ -405,29 +409,7 @@ namespace Ex03.ConsoleUI
                 this.restartGarageUI();
             }
         }
-        //ex06
-        private void chargeElectricVehicle()
-        {
-            string userLicenseNumber;
-            float userMinutesAmountToCharge;
 
-            userLicenseNumber = this.getLicenseNumberFromUser();
-            userMinutesAmountToCharge = getFloatFromUserWithMsg("please select amount of charging minutes ");
-            try
-            {
-                this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
-                Console.WriteLine("\nVehicle charged successfully!");
-            }
-            catch (Exception Ex)
-            {
-                Console.WriteLine(Ex.Message);
-            }
-            finally
-            {
-                this.restartGarageUI();
-            }
-        }
-        //ex07
         private void printFullVehicleData()
         {
             string userLicenseNumber;
@@ -447,6 +429,6 @@ namespace Ex03.ConsoleUI
                 this.restartGarageUI();
             }
         }
-
+        #endregion
     }
 }

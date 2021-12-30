@@ -41,12 +41,12 @@ namespace Ex03.GarageLogic
 
         #region Constructor
         public Truck(float i_WheelMaxAirPressureSetByTheManufacturer, string i_ModelName, string i_LicenseNumber,
-            string i_WheelManufacturerName, bool i_IsDrivingRefregiratedContents, float i_CargoVolume, PowerUnit i_truckEngine)
-            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_truckEngine, i_WheelManufacturerName, eWheelsCount.Sixteen, i_ModelName, i_LicenseNumber)
+            string i_WheelManufacturerName, bool i_IsDrivingRefregiratedContents, float i_CargoVolume, PowerUnit i_TruckEngine)
+            : base(i_WheelMaxAirPressureSetByTheManufacturer, i_TruckEngine, i_WheelManufacturerName, eWheelsCount.Sixteen, i_ModelName, i_LicenseNumber)
         {
             this.m_IsDrivingRefregiratedContents = i_IsDrivingRefregiratedContents;
             this.m_CargoVolume = i_CargoVolume;
-            base.PowerUnit = i_truckEngine;
+            base.PowerUnit = i_TruckEngine;
         }
         #endregion
 

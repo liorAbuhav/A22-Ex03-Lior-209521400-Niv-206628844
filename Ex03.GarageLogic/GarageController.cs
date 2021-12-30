@@ -50,7 +50,6 @@ namespace Ex03.GarageLogic
         #region Public Methods
         public void GetVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType, string i_VehicleOwnerName, string i_VehicleOwnerPhone)
         {
-            // todo: here needed to create a validation function (generic / for every type)
             switch (i_SelectedVehicleType)
             {
                 case eVehicleType.FuelMotorcycle:
@@ -87,8 +86,8 @@ namespace Ex03.GarageLogic
             {
                 throw (new ArgumentException("vehicle typw not supported in garage, see allowed vehicles for reference"));
             }
-            return newFuelMotorcycle;
 
+            return newFuelMotorcycle;
         }
 
         public static Motorcycle ValidateFuelMotorcycle(string[] i_UserParamsByVehicleType)
@@ -110,6 +109,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedEngineCapacity = TypesValidators.ValidateInt(i_UserParamsByVehicleType[6]);
             convertedMotorcycleLicenseType = TypesValidators.ValidateEnum<eLicenseType>(i_UserParamsByVehicleType[7]);
+
             return GarageController.CreateFuelMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters, convertedEngineFuelType,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
@@ -146,6 +146,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
             convertedEngineCapacity = TypesValidators.ValidateInt(i_UserParamsByVehicleType[5]);
             convertedMotorcycleLicenseType = TypesValidators.ValidateEnum<eLicenseType>(i_UserParamsByVehicleType[6]);
+
             return GarageController.CreateElectricMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
@@ -184,6 +185,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[6]);
             convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[7]);
+
             return GarageController.CreateFuelCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
@@ -220,6 +222,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
             convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[5]);
             convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[6]);
+
             return GarageController.CreateElectricCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
@@ -258,6 +261,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedIsDrivingRefregiratedContents = TypesValidators.ValidateBool(i_UserParamsByVehicleType[6]);
             convertedCargoVolume = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[7]);
+
             return GarageController.CreateTruck(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedIsDrivingRefregiratedContents, convertedCargoVolume);
         }
