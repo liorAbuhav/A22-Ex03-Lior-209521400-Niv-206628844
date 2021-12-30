@@ -410,6 +410,28 @@ namespace Ex03.ConsoleUI
             }
         }
 
+        private void chargeElectricVehicle()
+        {
+            string userLicenseNumber;
+            float userMinutesAmountToCharge;
+
+            userLicenseNumber = this.getLicenseNumberFromUser();
+            userMinutesAmountToCharge = getFloatFromUserWithMsg("please select amount of charging minutes ");
+            try
+            {
+                this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
+                Console.WriteLine("\nVehicle charged successfully!");
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.Message);
+            }
+            finally
+            {
+                this.restartGarageUI();
+            }
+        }
+
         private void printFullVehicleData()
         {
             string userLicenseNumber;
