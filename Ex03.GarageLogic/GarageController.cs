@@ -184,6 +184,11 @@ namespace Ex03.GarageLogic
             this.m_ControlledGarage.InflateVehicleWheelsToMaximum(repairedVehicleToInflateInGarage);
         }
 
+        public string[] GetAllFuelTypeOptions()
+        {
+            return Enum.GetNames(typeof(eFuelType));
+        }
+
         public void RefualFuelVehicle(string i_LicenseNumber, eFuelType i_FuelTypeToFill, float i_FuelAmountToFill)
         {
             RepairedVehicle repairedVehicleToRefuel = this.getGarageRepairedVehicleByLiecenceNumber(i_LicenseNumber);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ex03.GarageLogic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Ex03.ConsoleUI
 {
@@ -35,6 +36,8 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Welcome to the Garage! please choose what do you want to do today?\n");
             userOperationIDSelection = printGarageOperationsAndGetSelectionFromUser();
             this.navigateToOperationByUserSelectionId(userOperationIDSelection);
+
+            Console.ReadLine();
         }
 
         private static int printGarageOperationsAndGetSelectionFromUser()
@@ -84,25 +87,51 @@ namespace Ex03.ConsoleUI
                     usersYesNoAnswer = char.Parse(Console.ReadLine());
                     if (!(usersYesNoAnswer == 'y' || usersYesNoAnswer == 'n'))
                     {
-                        throw new FormatException("input should be y / n");
+                        throw new ArgumentException("input should be y / n");
                     }
                     else
                     {
                         shouldGetValidYesNoAnswerFromUser = false;
                     }
                 }
-                catch (Exception argEx)
+                catch (Exception FormatEx)
                 {
-                    Console.WriteLine(String.Format("Invalid input, {0}", argEx.Message));
+                    Console.WriteLine(String.Format("Invalid input, {0}", FormatEx.Message));
                 }
             }
 
             return usersYesNoAnswer;
         }
 
-        private void navigateToOperationByUserSelectionId(int i_userSelectionId)
+        private static float getValidFloatFromUser()
         {
-            switch (i_userSelectionId)
+            bool shouldGetValidFloatFromUser = true;
+            float usersFloat = 0;
+
+            while (shouldGetValidFloatFromUser)
+            {
+                try
+                {
+                    usersFloat = float.Parse(Console.ReadLine());
+                }
+                catch (FormatException FormatEx)
+                {
+                    Console.WriteLine(String.Format("Invalid input, {0}", FormatEx.Message));
+                }
+            }
+
+            return usersFloat;
+        }
+
+        private static float getFloatFromUserWithMsg(string i_MessageToShow)
+        {
+            Console.WriteLine(i_MessageToShow);
+            return getValidFloatFromUser();
+        }
+
+        private void navigateToOperationByUserSelectionId(int i_UserSelectionId)
+        {
+            switch (i_UserSelectionId)
             {
                 case 1:
                     this.insertVehicleToGarage();
@@ -111,24 +140,38 @@ namespace Ex03.ConsoleUI
                     this.showGaragesVehiclesLicenseNumbers();
                     break;
                 case 3:
-                    Console.WriteLine('3');
+                    this.changeVehicleStatus();
                     break;
                 case 4:
-                    Console.WriteLine('4');
+                    this.InflateVehicleWheelsToMaximum();
                     break;
                 case 5:
-                    Console.WriteLine('5');
+                    this.RefualFuelVehicle();
                     break;
                 case 6:
-                    Console.WriteLine('6');
+                    this.chargeElectricVehicle();
                     break;
                 case 7:
-                    Console.WriteLine('7');
+                    this.printFullVehicleData();
                     break;
             }
         }
-
         // ex1
+        private string changeParamNameToReadableFormat(string i_ParamName)
+        {
+            string paramName = i_ParamName.Substring(2);
+            string proccessedParamName = "";
+            foreach (char paramChar in paramName)
+            {
+                if (char.IsUpper(paramChar))
+                {
+                    proccessedParamName += ' ';
+                }
+                proccessedParamName += paramChar;
+            }
+            proccessedParamName = proccessedParamName.Substring(1);
+            return proccessedParamName;
+        }
         private void insertVehicleToGarage()
         {
             int userVhicleIDSelection = 0;
@@ -138,7 +181,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please select vehicle type:");
             for (int i = 0; i < this.m_GarageController.VehicleCreationMethods.Keys.Count; i++)
             { 
-                Console.WriteLine(String.Format("For {0} - press {1}",this.m_GarageController.VehicleCreationMethods.Keys.ElementAt(i).ToString(), i + 1 ));
+                Console.WriteLine(String.Format("For {0} - press {1}", this.m_GarageController.VehicleCreationMethods.Keys.ElementAt(i).ToString(), i + 1 ));
             }
 
             userVhicleIDSelection = getValidIntegerValueFromUser(1, this.m_GarageController.VehicleCreationMethods.Keys.Count);
@@ -155,18 +198,18 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private string[] createParametersDynamiclyForCreationMethod(ParameterInfo[] i_creationMethodParametersInfo)
+        private string[] createParametersDynamiclyForCreationMethod(ParameterInfo[] i_CreationMethodParametersInfo)
         {
-            string[] paramsForCreationMethodBeforeParsing = new string[i_creationMethodParametersInfo.Length];
+            string[] paramsForCreationMethodBeforeParsing = new string[i_CreationMethodParametersInfo.Length];
             Type currentParameterType;
-            for (int i = 0; i < i_creationMethodParametersInfo.Length; i++)
+            for (int i = 0; i < i_CreationMethodParametersInfo.Length; i++)
             {     
                 Console.WriteLine(string.Format("please enter value for {0}, should be {1}",
-                    i_creationMethodParametersInfo[i].Name, i_creationMethodParametersInfo[i].ParameterType));
-                currentParameterType = i_creationMethodParametersInfo[i].ParameterType;
+                    this.changeParamNameToReadableFormat(i_CreationMethodParametersInfo[i].Name), i_CreationMethodParametersInfo[i].ParameterType));
+                currentParameterType = i_CreationMethodParametersInfo[i].ParameterType;
                 if (currentParameterType.IsEnum)
                 {
-                    Console.WriteLine("this is an enum, your options are:");
+                    Console.WriteLine("this is an enum, your options are: (copy and paste selected option)");
                     foreach (string enumOptionName in Enum.GetNames(currentParameterType))
                     {
                         Console.Write(string.Format("{0} ", enumOptionName));
@@ -178,7 +221,6 @@ namespace Ex03.ConsoleUI
 
             return paramsForCreationMethodBeforeParsing;
         }
-
         // ex02
         private void showGaragesVehiclesLicenseNumbers()
         {
@@ -188,35 +230,28 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("Do you want to filter vehicle's license numbers by vehicle status? press y/n");
             userFilterSelection = getValidYesNoAnswerFromUser();
-            switch (userFilterSelection)
+            try
             {
-                case 'y':
-                    userRepairStatusSelection = this.getSelectedRepairStatus();
-                    try
-                    {
+                switch (userFilterSelection)
+                {
+                    case 'y':
+                        userRepairStatusSelection = this.getSelectedRepairStatus();
                         garagesVehiclesLicenseNumbers = this.m_GarageController.GetVehiclesLicenseNumbersByRepairStatus((eVehicleRepairStatus)userRepairStatusSelection);
-                    }
-                    catch (NullReferenceException NREx)
-                    {
-                        Console.WriteLine(NREx.Message);
-                    }
-                    break;
-                case 'n':
-                    try
-                    {
+                        break;
+                    case 'n':
                         garagesVehiclesLicenseNumbers = this.m_GarageController.GetAllVehiclesLicenseNumbers();
-                    }
-                    catch (NullReferenceException NREx)
-                    {
-                        Console.WriteLine(NREx.Message);
-                    }
-                    break;
-            }
+                        break;
+                }
 
-            Console.WriteLine("Vehicles license numbers are:");
-            foreach (string licenseNumber in garagesVehiclesLicenseNumbers)
+                Console.WriteLine("Vehicles license numbers are:");
+                foreach (string licenseNumber in garagesVehiclesLicenseNumbers)
+                {
+                    Console.WriteLine(licenseNumber);
+                }
+            }
+            catch (NullReferenceException NREx)
             {
-                Console.WriteLine(licenseNumber);
+                Console.WriteLine(NREx.Message);
             }
         }
 
@@ -229,7 +264,115 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i + 1);
             }
             Console.WriteLine();
-            return getValidIntegerValueFromUser(1, 7) - 1;
+            return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
+        }
+        // ex03
+        private string getLicenseNumberFromUser()
+        {
+            string userLicenseNumber;
+
+            Console.WriteLine("Enter vehicle license number\n");
+            userLicenseNumber = Console.ReadLine();
+            Console.WriteLine();
+
+            return userLicenseNumber;
+
+        }
+        private void changeVehicleStatus()
+        {
+            string userLicenseNumber;
+            int userRepairStatusSelection;
+
+            userLicenseNumber = this.getLicenseNumberFromUser();
+            userRepairStatusSelection = this.getSelectedRepairStatus();
+            try
+            {
+                this.m_GarageController.ChangeVehicleRepairStatus(userLicenseNumber, (eVehicleRepairStatus)userRepairStatusSelection);
+            }
+            catch (NullReferenceException NREx)
+            {
+                Console.WriteLine(NREx.Message);
+            }
+        }
+        //ex04
+        private void InflateVehicleWheelsToMaximum()
+        {
+            string userLicenseNumber = this.getLicenseNumberFromUser();
+            try
+            {
+                this.m_GarageController.InflateVehicleWheelsToMaximum(userLicenseNumber);
+            }
+            catch (NullReferenceException NREx)
+            {
+                Console.WriteLine(NREx.Message);
+            }
+        }
+        //ex05
+        private int getSelectedFuelType()
+        {
+            string[] repairStatusOptions = this.m_GarageController.GetAllFuelTypeOptions();
+            Console.WriteLine("select one of the folowing options:");
+            for (int i = 0; i < repairStatusOptions.Length; i++)
+            {
+                Console.WriteLine("for {0}, press {1}", repairStatusOptions[i], i + 1);
+            }
+            Console.WriteLine();
+            return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
+        }
+
+        private void RefualFuelVehicle()
+        {
+            string userLicenseNumber;
+            int userSelectedFuelType;
+            float userFuelAmountToFill;
+            
+            userLicenseNumber = this.getLicenseNumberFromUser();
+            userSelectedFuelType = this.getSelectedFuelType();
+            userFuelAmountToFill = getFloatFromUserWithMsg("please select how many liters of fuel to fill \n");
+
+            try
+            {
+                this.m_GarageController.RefualFuelVehicle(userLicenseNumber, (eFuelType)(userSelectedFuelType), userFuelAmountToFill);
+            }
+            catch (NullReferenceException NREx)
+            {
+                Console.WriteLine(NREx.Message);
+            }
+
+        }
+        //ex06
+        private void chargeElectricVehicle()
+        {
+            string userLicenseNumber;
+            float userMinutesAmountToCharge;
+
+            userLicenseNumber = this.getLicenseNumberFromUser();
+            userMinutesAmountToCharge = getFloatFromUserWithMsg("please select amount of charging minutes \n");
+
+            try
+            {
+                this.m_GarageController.ChargeElectricVehicle(userLicenseNumber, userMinutesAmountToCharge);
+            }
+            catch (NullReferenceException NREx)
+            {
+                Console.WriteLine(NREx.Message);
+            }
+        }
+        //ex07
+        private void printFullVehicleData()
+        {
+            string userLicenseNumber;
+
+            userLicenseNumber = this.getLicenseNumberFromUser();
+
+            try
+            {
+                // this.m_GarageController.GetRepairVehicleFullData(userLicenseNumber, userMinutesAmountToCharge);
+            }
+            catch (NullReferenceException NREx)
+            {
+                Console.WriteLine(NREx.Message);
+            }
         }
 
     }
