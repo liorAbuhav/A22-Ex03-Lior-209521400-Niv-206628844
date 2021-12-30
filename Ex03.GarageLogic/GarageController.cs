@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
         #endregion
 
         #region Public Methods
-        public void getVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType, string i_VehicleOwnerName, string i_VehicleOwnerPhone)
+        public void GetVehicleParamsFromUserAndParseByVehicleType(eVehicleType i_SelectedVehicleType, string[] i_UserParamsByVehicleType, string i_VehicleOwnerName, string i_VehicleOwnerPhone)
         {
             // todo: here needed to create a validation function (generic / for every type)
             switch (i_SelectedVehicleType)
@@ -114,7 +114,7 @@ namespace Ex03.GarageLogic
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
 
-        public static Motorcycle createElectricMotorcycle(float i_WheelMaxAirPressureSetByTheManufacturer, float i_MaxBatteryTimeInHours,
+        public static Motorcycle CreateElectricMotorcycle(float i_WheelMaxAirPressureSetByTheManufacturer, float i_MaxBatteryTimeInHours,
             string i_ModelName, string i_LicenseNumber, string i_WheelManufacturerName, int i_EngineCapacity,
             eLicenseType i_MotorcycleLicenseType)
         {
@@ -146,11 +146,11 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
             convertedEngineCapacity = TypesValidators.ValidateInt(i_UserParamsByVehicleType[5]);
             convertedMotorcycleLicenseType = TypesValidators.ValidateEnum<eLicenseType>(i_UserParamsByVehicleType[6]);
-            return GarageController.createElectricMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
+            return GarageController.CreateElectricMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
 
-        public static Car createFuelCar(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountInLiters,
+        public static Car CreateFuelCar(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountInLiters,
             eFuelType i_EngineFuelType, string i_ModelName, string i_LicenseNumber,
             string i_WheelManufacturerName, eColor i_CarColor, eDoorsNumber i_DoorsNumber)
         {
@@ -184,11 +184,11 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[6]);
             convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[7]);
-            return GarageController.createFuelCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
+            return GarageController.CreateFuelCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
 
-        public static Car createElectricCar(float i_WheelMaxAirPressureSetByTheManufacturer, float i_MaxBatteryTimeInHours,
+        public static Car CreateElectricCar(float i_WheelMaxAirPressureSetByTheManufacturer, float i_MaxBatteryTimeInHours,
             string i_ModelName, string i_LicenseNumber, string i_WheelManufacturerName,
             eColor i_CarColor, eDoorsNumber i_DoorsNumber)
         {
@@ -220,11 +220,11 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
             convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[5]);
             convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[6]);
-            return GarageController.createElectricCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
+            return GarageController.CreateElectricCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
 
-        public static Truck createTruck(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountInLiters,
+        public static Truck CreateTruck(float i_WheelMaxAirPressureSetByTheManufacturer, float i_EngineFuelAmountInLiters,
             eFuelType i_EngineFuelType, string i_ModelName, string i_LicenseNumber,
             string i_WheelManufacturerName, bool i_IsDrivingRefregiratedContents, float i_CargoVolume)
         {
@@ -258,7 +258,7 @@ namespace Ex03.GarageLogic
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedIsDrivingRefregiratedContents = TypesValidators.ValidateBool(i_UserParamsByVehicleType[6]);
             convertedCargoVolume = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[7]);
-            return GarageController.createTruck(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
+            return GarageController.CreateTruck(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedIsDrivingRefregiratedContents, convertedCargoVolume);
         }
 

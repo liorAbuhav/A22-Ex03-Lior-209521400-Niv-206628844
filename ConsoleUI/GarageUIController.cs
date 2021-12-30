@@ -12,6 +12,7 @@ namespace Ex03.ConsoleUI
     public class GarageUIController
     {
         private GarageController m_GarageController;
+
         private static readonly string[] sr_GarageOperations = {
             "inserting new vehicle to the garage",
             "showing licensce numbers of garage's vheicles (with filtering option)",
@@ -161,10 +162,10 @@ namespace Ex03.ConsoleUI
                     this.changeVehicleStatus();
                     break;
                 case 4:
-                    this.InflateVehicleWheelsToMaximum();
+                    this.inflateVehicleWheelsToMaximum();
                     break;
                 case 5:
-                    this.RefualFuelVehicle();
+                    this.refualFuelVehicle();
                     break;
                 case 6:
                     this.chargeElectricVehicle();
@@ -214,7 +215,7 @@ namespace Ex03.ConsoleUI
             userInputOwnerPhone = getStringFromUserWithMsg("Please enter vehicle owner phone");
             try
             {
-                this.m_GarageController.getVehicleParamsFromUserAndParseByVehicleType(userVhicleNameBySelection, paramsForCreationMethodBeforeParsing, userInputOwnerName, userInputOwnerPhone);
+                this.m_GarageController.GetVehicleParamsFromUserAndParseByVehicleType(userVhicleNameBySelection, paramsForCreationMethodBeforeParsing, userInputOwnerName, userInputOwnerPhone);
                 Console.WriteLine("Vehicle ensured successfully!");
             }
             catch (Exception Ex)
@@ -347,7 +348,7 @@ namespace Ex03.ConsoleUI
             }
         }
         //ex04
-        private void InflateVehicleWheelsToMaximum()
+        private void inflateVehicleWheelsToMaximum()
         {
             string userLicenseNumber = this.getLicenseNumberFromUser();
 
@@ -381,7 +382,7 @@ namespace Ex03.ConsoleUI
             return getValidIntegerValueFromUser(1, repairStatusOptions.Length) - 1;
         }
 
-        private void RefualFuelVehicle()
+        private void refualFuelVehicle()
         {
             string userLicenseNumber;
             int userSelectedFuelType;
