@@ -24,81 +24,101 @@ namespace Ex03.GarageLogic
             return convertedFloat;
         }
 
-        public static eFuelType ValidateEFuelType(string i_StringToConvert)
+        //public static eFuelType ValidateEFuelType(string i_StringToConvert)
+        //{
+        //    int convertedEnumValue = 0;
+        //    try
+        //    {
+        //        if (!Enum.IsDefined(typeof(eFuelType), i_StringToConvert))
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //        convertedEnumValue = (int)Enum.Parse(typeof(eFuelType), i_StringToConvert);
+        //    }
+        //    catch (FormatException FEx)
+        //    {
+        //        Console.WriteLine(FEx.Message);
+        //    }
+
+        //    return (eFuelType)(convertedEnumValue);
+        //}
+
+        //public static eLicenseType ValidateELiecenceType(string i_StringToConvert)
+        //{
+        //    int convertedEnumValue = 0;
+        //    try
+        //    {
+        //        if (!Enum.IsDefined(typeof(eLicenseType), i_StringToConvert))
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //        convertedEnumValue = (int)Enum.Parse(typeof(eLicenseType), i_StringToConvert);
+        //    }
+        //    catch (FormatException FEx)
+        //    {
+        //        Console.WriteLine(FEx.Message);
+        //    }
+
+        //    return (eLicenseType)(convertedEnumValue);
+        //}
+
+        //public static eColor ValidateEColor(string i_StringToConvert)
+        //{
+        //    int convertedEnumValue = 0;
+        //    try
+        //    {
+        //        if (!Enum.IsDefined(typeof(eColor), i_StringToConvert))
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //        convertedEnumValue = (int)Enum.Parse(typeof(eColor), i_StringToConvert);
+        //    }
+        //    catch (FormatException FEx)
+        //    {
+        //        Console.WriteLine(FEx.Message);
+        //    }
+
+        //    return (eColor)(convertedEnumValue);
+        //}
+
+        //public static eDoorsNumber ValidateEDoorsNumber(string i_StringToConvert)
+        //{
+        //    int convertedEnumValue = 0;
+        //    try
+        //    {
+        //        if (!Enum.IsDefined(typeof(eDoorsNumber), i_StringToConvert))
+        //        {
+        //            throw new ArgumentException();
+        //        }
+        //        convertedEnumValue = (int)Enum.Parse(typeof(eDoorsNumber), i_StringToConvert);
+        //    }
+        //    catch (FormatException FEx)
+        //    {
+        //        Console.WriteLine(FEx.Message);
+        //    }
+
+        //    return (eDoorsNumber)(convertedEnumValue);
+        //}
+
+        public static T ValidateEnum<T>(string i_StringToConvert)
         {
             int convertedEnumValue = 0;
             try
             {
-                if (!Enum.IsDefined(typeof(eFuelType), i_StringToConvert))
+                if (!Enum.IsDefined(typeof(T), i_StringToConvert))
                 {
                     throw new ArgumentException();
                 }
-                convertedEnumValue = (int)Enum.Parse(typeof(eFuelType), i_StringToConvert);
+                convertedEnumValue = (int)Enum.Parse(typeof(T), i_StringToConvert);
             }
             catch (FormatException FEx)
             {
                 Console.WriteLine(FEx.Message);
             }
 
-            return (eFuelType)(convertedEnumValue);
+            return (T)Convert.ChangeType(convertedEnumValue, typeof(T));
         }
 
-        public static eLicenseType ValidateELiecenceType(string i_StringToConvert)
-        {
-            int convertedEnumValue = 0;
-            try
-            {
-                if (!Enum.IsDefined(typeof(eLicenseType), i_StringToConvert))
-                {
-                    throw new ArgumentException();
-                }
-                convertedEnumValue = (int)Enum.Parse(typeof(eLicenseType), i_StringToConvert);
-            }
-            catch (FormatException FEx)
-            {
-                Console.WriteLine(FEx.Message);
-            }
-
-            return (eLicenseType)(convertedEnumValue);
-        }
-
-        public static eColor ValidateEColor(string i_StringToConvert)
-        {
-            int convertedEnumValue = 0;
-            try
-            {
-                if (!Enum.IsDefined(typeof(eColor), i_StringToConvert))
-                {
-                    throw new ArgumentException();
-                }
-                convertedEnumValue = (int)Enum.Parse(typeof(eColor), i_StringToConvert);
-            }
-            catch (FormatException FEx)
-            {
-                Console.WriteLine(FEx.Message);
-            }
-
-            return (eColor)(convertedEnumValue);
-        }
-
-        public static eDoorsNumber ValidateEDoorsNumber(string i_StringToConvert)
-        {
-            int convertedEnumValue = 0;
-            try
-            {
-                if (!Enum.IsDefined(typeof(eDoorsNumber), i_StringToConvert))
-                {
-                    throw new ArgumentException();
-                }
-                convertedEnumValue = (int)Enum.Parse(typeof(eDoorsNumber), i_StringToConvert);
-            }
-            catch (FormatException FEx)
-            {
-                Console.WriteLine(FEx.Message);
-            }
-
-            return (eDoorsNumber)(convertedEnumValue);
-        }
 
         public static int ValidateInt(string i_StringToConvert)
         {

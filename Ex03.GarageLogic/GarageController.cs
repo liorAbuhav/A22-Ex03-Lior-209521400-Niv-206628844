@@ -103,12 +103,12 @@ namespace Ex03.GarageLogic
 
             convertedWheelMaxAirPressureSetByTheManufacturer = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[0]);
             convertedEngineFuelAmountToAddInLiters = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[1]);
-            convertedEngineFuelType = TypesValidators.ValidateEFuelType(i_UserParamsByVehicleType[2]);
+            convertedEngineFuelType = TypesValidators.ValidateEnum<eFuelType>(i_UserParamsByVehicleType[2]);
             convertedModelName = i_UserParamsByVehicleType[3];
             convertedLicenseNumber = i_UserParamsByVehicleType[4];
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
             convertedEngineCapacity = TypesValidators.ValidateInt(i_UserParamsByVehicleType[6]);
-            convertedMotorcycleLicenseType = TypesValidators.ValidateELiecenceType(i_UserParamsByVehicleType[7]);
+            convertedMotorcycleLicenseType = TypesValidators.ValidateEnum<eLicenseType>(i_UserParamsByVehicleType[7]);
             return GarageController.createFuelMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountToAddInLiters, convertedEngineFuelType,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
@@ -144,7 +144,7 @@ namespace Ex03.GarageLogic
             convertedLicenseNumber = i_UserParamsByVehicleType[3];
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
             convertedEngineCapacity = TypesValidators.ValidateInt(i_UserParamsByVehicleType[5]);
-            convertedMotorcycleLicenseType = TypesValidators.ValidateELiecenceType(i_UserParamsByVehicleType[6]);
+            convertedMotorcycleLicenseType = TypesValidators.ValidateEnum<eLicenseType>(i_UserParamsByVehicleType[6]);
             return GarageController.createElectricMotorcycle(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedEngineCapacity, convertedMotorcycleLicenseType);
         }
@@ -177,12 +177,12 @@ namespace Ex03.GarageLogic
 
             convertedWheelMaxAirPressureSetByTheManufacturer = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[0]);
             convertedEngineFuelAmountToAddInLiters = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[1]);
-            convertedEngineFuelType = TypesValidators.ValidateEFuelType(i_UserParamsByVehicleType[2]);
+            convertedEngineFuelType = TypesValidators.ValidateEnum<eFuelType>(i_UserParamsByVehicleType[2]);
             convertedModelName = i_UserParamsByVehicleType[3];
             convertedLicenseNumber = i_UserParamsByVehicleType[4];
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
-            convertedCarColor = TypesValidators.ValidateEColor(i_UserParamsByVehicleType[6]);
-            convertedDoorsNumber = TypesValidators.ValidateEDoorsNumber(i_UserParamsByVehicleType[7]);
+            convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[6]);
+            convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[7]);
             return GarageController.createFuelCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedEngineFuelAmountToAddInLiters,
                 convertedEngineFuelType, convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
@@ -217,8 +217,8 @@ namespace Ex03.GarageLogic
             convertedModelName = i_UserParamsByVehicleType[2];
             convertedLicenseNumber = i_UserParamsByVehicleType[3];
             convertedWheelManufacturerName = i_UserParamsByVehicleType[4];
-            convertedCarColor = TypesValidators.ValidateEColor(i_UserParamsByVehicleType[5]);
-            convertedDoorsNumber = TypesValidators.ValidateEDoorsNumber(i_UserParamsByVehicleType[6]);
+            convertedCarColor = TypesValidators.ValidateEnum<eColor>(i_UserParamsByVehicleType[5]);
+            convertedDoorsNumber = TypesValidators.ValidateEnum<eDoorsNumber>(i_UserParamsByVehicleType[6]);
             return GarageController.createElectricCar(convertedWheelMaxAirPressureSetByTheManufacturer, convertedMaxBatteryTimeInHours,
                 convertedModelName, convertedLicenseNumber, convertedWheelManufacturerName, convertedCarColor, convertedDoorsNumber);
         }
@@ -251,7 +251,7 @@ namespace Ex03.GarageLogic
 
             convertedWheelMaxAirPressureSetByTheManufacturer = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[0]);
             convertedEngineFuelAmountToAddInLiters = TypesValidators.ValidateFloat(i_UserParamsByVehicleType[1]);
-            convertedEngineFuelType = TypesValidators.ValidateEFuelType(i_UserParamsByVehicleType[2]);
+            convertedEngineFuelType = TypesValidators.ValidateEnum<eFuelType>(i_UserParamsByVehicleType[2]);
             convertedModelName = i_UserParamsByVehicleType[3];
             convertedLicenseNumber = i_UserParamsByVehicleType[4];
             convertedWheelManufacturerName = i_UserParamsByVehicleType[5];
