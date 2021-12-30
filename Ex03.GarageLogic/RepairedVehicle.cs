@@ -46,5 +46,10 @@ namespace Ex03.GarageLogic
             this.m_VehicleStatus = i_VehicleStatus;
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Repaired vehicle: owner name-{0}, owner phone-{1}, repair status-{2} ", this.m_OwnerName, this.m_OwnerPhone, this.m_VehicleStatus);
+        }
     }
 }

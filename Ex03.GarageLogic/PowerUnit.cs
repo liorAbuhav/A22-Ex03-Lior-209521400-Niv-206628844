@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         private float m_CurrentEnergyRate;
         private float m_MaxEnergyRate;
         #endregion
-
+        
         #region Properties
         protected float CurrentEnergyRate
         {

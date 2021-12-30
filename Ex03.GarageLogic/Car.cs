@@ -39,6 +39,22 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        public override string ToString()
+        {
+            Engine isEngine = this.PowerUnit as Engine;
+            string powerUnitString;
+
+            if (isEngine != null)
+            {
+                powerUnitString = isEngine.ToString();
+            }
+            else
+            {
+                powerUnitString = (this.PowerUnit as Battery).ToString();
+            }
+            return String.Format("Car: color-{0}, doors number-{1}, powerUnit-{2}", this.m_CarColor, this.m_DoorsNumber, powerUnitString) + base.ToString();
+        }
+
         #region Private Constructor
         private Car(float i_WheelMaxAirPressureSetByTheManufacturer, string i_ModelName, string i_LicenseNumber,
             string i_WheelManufacturerName, eColor i_CarColor, eDoorsNumber i_DoorsNumber, PowerUnit i_carEngine)

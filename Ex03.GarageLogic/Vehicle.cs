@@ -127,6 +127,12 @@ namespace Ex03.GarageLogic
         }
         #endregion
 
+        public override string ToString()
+        {
+            return String.Format("Vehicle: model-{0}, licence number-{1}, wheels manufacturer-{2}, wheel max presure-{3}",
+                this.m_ModelName, this.m_LicenseNumber, this.GetWheelManufacturerName(), this.GetWheelMaxAirPressureSetByTheManufacturer());
+        }
+
         #region Public Methods
         public float GetWheelMaxAirPressureSetByTheManufacturer()
         {
@@ -159,6 +165,12 @@ namespace Ex03.GarageLogic
             }
 
             return wheels;
+        }
+
+        public string GetWheelManufacturerName()
+        {
+            Wheel vehicleWheel = this.Wheels.First();
+            return vehicleWheel.ManufacturerName;
         }
         #endregion
     }
